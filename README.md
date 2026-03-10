@@ -2,6 +2,8 @@
 基于Archirithm的项目二次修改而来⬇️
 https://github.com/Archirithm/dotfiles
 
+⚠️我只用到了quicksheel基本功能，这里只介绍我用到的功能，具体的使用可以参考原作者。
+
 ==============================================
 
 主要就是增加了蓝牙连接（需要安装bluetui！！！）
