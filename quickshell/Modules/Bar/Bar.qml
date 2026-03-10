@@ -57,6 +57,7 @@ Variants {
                 spacing: 10
                 Workspaces {}
                 App {}
+                //Cava {}
                 SysMonitor {
                     Layout.alignment: Qt.AlignVCenter
                 }
