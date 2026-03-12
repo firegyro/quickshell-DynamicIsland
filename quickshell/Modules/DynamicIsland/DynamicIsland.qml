@@ -124,13 +124,40 @@ Rectangle {
     }
 
     MouseArea {
-        anchors.fill: parent; cursorShape: Qt.PointingHandCursor; enabled: !isNotifMode && !isVolumeMode; acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        enabled: !isNotifMode && !isVolumeMode
+
+        // 1. 允许接收右键事件
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+
         onClicked: (mouse) => {
-            if (mouse.button === Qt.MiddleButton) {
-                if (root.showDashboard) root.showDashboard = false; else if (root.showWallpaper) root.showWallpaper = false; else if (root.showLauncher) root.showLauncher = false;
-                root.showLyrics = !root.showLyrics; if (root.showLyrics) root.expanded = false;
+            if (mouse.button === Qt.RightButton) {
+                // --- 右键逻辑：切换 Wallpaper 状态 ---
+                // 关闭其他可能冲突的面板
+                if (root.showDashboard) root.showDashboard = false;
+                if (root.showLyrics) root.showLyrics = false;
+                if (root.showLauncher) root.showLauncher = false;
+
+                root.showWallpaper = !root.showWallpaper;
+                if (root.showWallpaper) root.expanded = false;
+
+            } else if (mouse.button === Qt.MiddleButton) {
+                // --- 中键逻辑：切换歌词 ---
+                if (root.showDashboard) root.showDashboard = false;
+                else if (root.showWallpaper) root.showWallpaper = false;
+                else if (root.showLauncher) root.showLauncher = false;
+
+                root.showLyrics = !root.showLyrics;
+                if (root.showLyrics) root.expanded = false;
+
             } else {
-                if (root.showDashboard) root.showDashboard = false; else if (root.showWallpaper) root.showWallpaper = false; else if (root.showLyrics) root.showLyrics = false; else if (root.showLauncher) root.showLauncher = false; else root.expanded = !root.expanded;
+                // --- 左键逻辑：默认展开/折叠 ---
+                if (root.showDashboard) root.showDashboard = false;
+                else if (root.showWallpaper) root.showWallpaper = false;
+                else if (root.showLyrics) root.showLyrics = false;
+                else if (root.showLauncher) root.showLauncher = false;
+                else root.expanded = !root.expanded;
             }
         }
     }
